@@ -13,12 +13,8 @@ import { CategoryTileComponent } from './components/category-tile/category-tile.
 
 const categoryPageRoutes: Routes = [
   {
-    path: ':categoryUniqueId',
+    path: '', // completely consumed by custom route matcher
     component: CategoryPageContainerComponent,
-  },
-  {
-    path: ':categoryUniqueId/product',
-    loadChildren: () => import('../product/product-page.module').then(m => m.ProductPageModule),
   },
 ];
 

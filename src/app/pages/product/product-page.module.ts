@@ -16,13 +16,8 @@ import { ProductPageContainerComponent } from './product-page.container';
 
 const productPageRoutes: Routes = [
   {
-    path: ':sku',
-    children: [
-      {
-        path: '**',
-        component: ProductPageContainerComponent,
-      },
-    ],
+    path: '', // completely consumed by custom route matcher
+    component: ProductPageContainerComponent,
   },
 ];
 
