@@ -143,7 +143,6 @@ export class CategoriesEffects {
   @Effect()
   productOrCategoryChanged$ = this.actions$.pipe(
     ofRoute(categoryRoute.formats),
-    log('CAT EFF'),
     mapToParam<string>('categoryUniqueId'),
     switchMap(() => this.store.pipe(select(selectors.getSelectedCategory))),
     whenTruthy(),
