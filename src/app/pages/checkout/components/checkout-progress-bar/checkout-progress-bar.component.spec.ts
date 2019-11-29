@@ -30,14 +30,14 @@ describe('Checkout Progress Bar Component', () => {
     expect(() => fixture.detectChanges()).not.toThrow();
   });
 
-  it('should display 3 links (to address page, shipping page and payment page) if step = 4 (review)', () => {
-    component.step = 4;
+  it('should display 2 links (to shipping page and payment page) if step = 3 (review)', () => {
+    component.step = 3;
     fixture.detectChanges();
-    expect(element.querySelectorAll('li a')).toHaveLength(3);
+    expect(element.querySelectorAll('li a')).toHaveLength(2);
   });
 
-  it('should not display any links if basket step = 5 (receipt)', () => {
-    component.step = 5;
+  it('should not display any links if basket step = 4 (receipt)', () => {
+    component.step = 4;
     fixture.detectChanges();
     expect(element.querySelectorAll('li a')).toHaveLength(0);
   });

@@ -34,6 +34,6 @@ export class CheckoutShippingPageContainerComponent implements OnInit {
    * Validates the basket and jumps to the next checkout step (Payment)
    */
   nextStep() {
-    this.checkoutFacade.continue(3);
+    this.checkoutFacade.continue(2);
   }
 }

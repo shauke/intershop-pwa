@@ -14,33 +14,27 @@ export class CheckoutProgressBarComponent {
   checkoutSteps = [
     {
       step: 1,
-      link: '/checkout/address',
-      labelKey: 'checkout.progress.addresses.label',
+      link: '/checkout/shipping',
+      labelKey: 'checkout.progress.shipping.label',
       stepKey: 'checkout.progress.step1.text',
     },
     {
       step: 2,
-      link: '/checkout/shipping',
-      labelKey: 'checkout.progress.shipping.label',
+      link: '/checkout/payment',
+      labelKey: 'checkout.progress.payment.label',
       stepKey: 'checkout.progress.step2.text',
     },
     {
       step: 3,
-      link: '/checkout/payment',
-      labelKey: 'checkout.progress.payment.label',
+      link: '/checkout/review',
+      labelKey: 'checkout.progress.review.label',
       stepKey: 'checkout.progress.step3.text',
     },
     {
       step: 4,
-      link: '/checkout/review',
-      labelKey: 'checkout.progress.review.label',
-      stepKey: 'checkout.progress.step4.text',
-    },
-    {
-      step: 5,
       link: '/checkout/receipt',
       labelKey: 'checkout.progress.receipt.label',
-      stepKey: 'checkout.progress.step5.text',
+      stepKey: 'checkout.progress.step4.text',
     },
   ];
 
@@ -50,6 +44,6 @@ export class CheckoutProgressBarComponent {
    * @returns     Returns 'true' if the step number is lover than the current step and if the current step is lower than 5.
    */
   checkoutStepLink(step): boolean {
-    return step < this.step && this.step < 5;
+    return step < this.step && this.step < 4;
   }
 }

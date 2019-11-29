@@ -18,34 +18,29 @@ const checkoutPageRoutes: Routes = [
     component: CheckoutPageContainerComponent,
     children: [
       {
-        path: 'address',
-        data: { checkoutStep: 1 },
-        component: CheckoutAddressPageModule.component,
-      },
-      {
         path: 'shipping',
-        data: { checkoutStep: 2 },
+        data: { checkoutStep: 1 },
         component: CheckoutShippingPageModule.component,
       },
       {
         path: 'payment',
-        data: { checkoutStep: 3 },
+        data: { checkoutStep: 2 },
         component: CheckoutPaymentPageModule.component,
       },
       {
         path: 'review',
-        data: { checkoutStep: 4 },
+        data: { checkoutStep: 3 },
         component: CheckoutReviewPageModule.component,
       },
       {
         path: 'receipt',
-        data: { checkoutStep: 5 },
+        data: { checkoutStep: 4 },
         component: CheckoutReceiptPageModule.component,
       },
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'address',
+        redirectTo: 'shipping',
       },
     ],
   },

@@ -514,7 +514,7 @@ describe('Basket Effects', () => {
     it('should map to action of type ContinueCheckoutSuccess', () => {
       const action = new basketActions.ContinueCheckout({ targetStep: 1 });
       const completion = new basketActions.ContinueCheckoutSuccess({
-        targetRoute: '/checkout/address',
+        targetRoute: '/checkout/shipping',
         basketValidation,
       });
       actions$ = hot('-a', { a: action });
@@ -549,7 +549,7 @@ describe('Basket Effects', () => {
       const action = new basketActions.ContinueCheckout({ targetStep: 1 });
       basketValidation.results.valid = false;
       const completion = new basketActions.ContinueCheckoutWithIssues({
-        targetRoute: '/checkout/address',
+        targetRoute: '/checkout/shipping',
         basketValidation,
       });
       actions$ = hot('-a', { a: action });

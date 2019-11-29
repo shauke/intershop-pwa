@@ -43,6 +43,6 @@ export class CheckoutPaymentPageContainerComponent implements OnInit {
    * Validates the basket and jumps to the next checkout step (Review)
    */
   nextStep() {
-    this.checkoutFacade.continue(4);
+    this.checkoutFacade.continue(3);
   }
 }

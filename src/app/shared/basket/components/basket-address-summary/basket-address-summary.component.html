@@ -1,7 +1,7 @@
 <div class="address-summary">
   <!-- Invoice Address -->
   <div class="clearfix">
-    <a class="float-right btn-tool" routerLink="/checkout/address">
+    <a class="float-right btn-tool" routerLink="/checkout/payment">
       <fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon>
     </a>
     <h5 class="float-left">{{ 'checkout.address.billing.label' | translate }}</h5>
@@ -14,7 +14,7 @@
   <div class="clearfix">
     <a
       class="float-right btn-tool"
-      routerLink="/checkout/address"
+      routerLink="/checkout/shipping"
       title="{{ 'checkout.address.update.label' | translate }} />"
     >
       <fa-icon [icon]="['fas', 'pencil-alt']"></fa-icon>

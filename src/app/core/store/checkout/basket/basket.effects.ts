@@ -190,21 +190,16 @@ export class BasketEffects {
       switch (targetStep) {
         case 1: {
           scopes = ['Products', 'Value'];
-          targetRoute = '/checkout/address';
-          break;
-        }
-        case 2: {
-          scopes = ['InvoiceAddress', 'ShippingAddress', 'Addresses'];
           targetRoute = '/checkout/shipping';
           break;
         }
-        case 3: {
-          scopes = ['Shipping'];
+        case 2: {
+          scopes = ['Shipping', 'ShippingAddress', 'Addresses'];
           targetRoute = '/checkout/payment';
           break;
         }
-        case 4: {
-          scopes = ['Payment'];
+        case 3: {
+          scopes = ['InvoiceAddress', 'Payment'];
           targetRoute = '/checkout/review';
           break;
         }
