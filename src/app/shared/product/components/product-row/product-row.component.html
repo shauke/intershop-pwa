@@ -50,7 +50,10 @@
           [product]="product"
           [showInformationalPrice]="true"
         ></ish-product-price>
-        <ish-product-inventory *ngIf="configuration.displayInventory" [product]="product"></ish-product-inventory>
+        <ish-product-inventory
+          *ngIf="configuration.displayInventory && !isMasterProduct(product)"
+          [product]="product"
+        ></ish-product-inventory>
         <ish-product-shipment *ngIf="configuration.displayShipment" [product]="product"></ish-product-shipment>
 
         <ish-product-variation-select
