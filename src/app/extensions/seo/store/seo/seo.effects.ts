@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { MetaService } from '@ngx-meta/core';
@@ -7,6 +8,7 @@ import { mapToParam, ofRoute } from 'ngrx-router';
 import { debounce, first, map, switchMap, tap } from 'rxjs/operators';
 
 import { SeoAttributes } from 'ish-core/models/seo-attribute/seo-attribute.model';
+import { generateProductRoute } from 'ish-core/pipes/product-route.pipe';
 import { getSelectedContentPage } from 'ish-core/store/content/pages';
 import { CategoriesActionTypes } from 'ish-core/store/shopping/categories';
 import { getSelectedCategory } from 'ish-core/store/shopping/categories/categories.selectors';
@@ -17,12 +19,19 @@ import { SeoActionTypes, SetSeoAttributes } from './seo.actions';
 
 @Injectable()
 export class SeoEffects {
+  cannonicalLink: HTMLLinkElement;
+
   constructor(
     private actions$: Actions,
     private store: Store<{}>,
     private meta: MetaService,
-    private translate: TranslateService
-  ) {}
+    private translate: TranslateService,
+    @Inject(DOCUMENT) private doc
+  ) {
+    this.cannonicalLink = this.doc.createElement('link');
+    this.cannonicalLink.setAttribute('rel', 'canonical');
+    this.doc.head.appendChild(this.cannonicalLink);
+  }
 
   @Effect({ dispatch: false })
   setMetaData$ = this.actions$.pipe(
@@ -34,6 +43,7 @@ export class SeoEffects {
         this.meta.setTitle(seoAttributes.metaTitle);
         this.meta.setTag('description', seoAttributes.metaDescription);
         this.meta.setTag('robots', seoAttributes.robots && seoAttributes.robots.join(','));
+        this.cannonicalLink.setAttribute('href', seoAttributes.canonical || this.doc.URL);
       }
     })
   );
@@ -59,7 +69,14 @@ export class SeoEffects {
     switchMap(() =>
       this.store.pipe(
         select(getSelectedProduct),
-        mapToProperty('seoAttributes'),
+        map(
+          p =>
+            p &&
+            p.seoAttributes && {
+              canonical: generateProductRoute(p, p.defaultCategory()),
+              ...p.seoAttributes,
+            }
+        ),
         whenTruthy()
       )
     ),
