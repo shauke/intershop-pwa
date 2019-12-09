@@ -38,8 +38,8 @@ const accountPageRoutes: Routes = [
         loadChildren: () => import('../account-order/account-order-page.module').then(m => m.AccountOrderPageModule),
       },
       {
-        path: 'overview',
-        data: { breadcrumbData: [{ key: 'account.overview.link' }] },
+        path: '',
+        data: { breadcrumbData: [] },
         component: AccountOverviewPageModule.component,
       },
       {
@@ -72,11 +72,6 @@ const accountPageRoutes: Routes = [
           import('../../extensions/quoting/pages/quote-request-edit/quote-request-edit-page.module').then(
             m => m.QuoteRequestEditPageModule
           ),
-      },
-      {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'overview',
       },
     ],
   },
