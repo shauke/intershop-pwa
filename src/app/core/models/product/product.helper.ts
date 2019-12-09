@@ -151,4 +151,13 @@ export class ProductHelper {
       };
     }
   }
+
+  static showAddToCart(product: Product): boolean {
+    return !!(
+      product.inStock &&
+      product.availability &&
+      !ProductHelper.isMasterProduct(product) &&
+      (product.salePrice || ProductHelper.isRetailSet(product))
+    );
+  }
 }

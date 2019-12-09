@@ -31,8 +31,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   productDetailForm: FormGroup;
   readonly quantityControlName = 'quantity';
 
+  showAddToCart = ProductHelper.showAddToCart;
   isVariationProduct = ProductHelper.isVariationProduct;
-  isMasterProduct = ProductHelper.isMasterProduct;
   isRetailSet = ProductHelper.isRetailSet;
 
   private destroy$ = new Subject();
