@@ -151,4 +151,39 @@ export class ProductHelper {
       };
     }
   }
+
+  /**
+   * Determines the set of common attribute names for the compare products.
+   * @param products List of products to be compared
+   * @returns        A set of the common attribute names
+   */
+  static getCommonAttributeNames(products: Product[]): Set<string> {
+    if (!products || !products.length) {
+      return;
+    } else {
+      const result = products.reduce((commonAttributeNameList, current) => {
+        commonAttributeNameList.push(current.attributes.map(x => x.name));
+        return commonAttributeNameList;
+      }, []);
+      return new Set(result.shift().filter(attribute => result.every(x => x.indexOf(attribute) !== -1)));
+    }
+  }
+
+  /**
+   * Get a product with only specific attributes. All attributes that are common between the compare products are filtered out.
+   * @param product         The product that should be stripped of its common attributes
+   * @param visibleProducts List of products to be compared
+   * @returns               A Product with specific attributes only compared to the common attributes
+   */
+  static getProductWithoutCommonAttributes(product: Product, visibleProducts: Product[]): Product {
+    if (!product || !product.sku || !visibleProducts || !visibleProducts.length) {
+      return;
+    } else {
+      const specificAttributesProduct: Product = { ...product };
+      specificAttributesProduct.attributes = product.attributes.filter(
+        attribute => !ProductHelper.getCommonAttributeNames(visibleProducts).has(attribute.name)
+      );
+      return specificAttributesProduct;
+    }
+  }
 }

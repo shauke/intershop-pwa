@@ -257,4 +257,153 @@ describe('Product Helper', () => {
       `);
     });
   });
+
+  describe('compare', () => {
+    let product: Product;
+    let compareProduct1: Product;
+    let compareProduct2: Product;
+
+    beforeEach(() => {
+      product = { sku: '110', inStock: true, availability: true } as Product;
+      product.attributes = [
+        {
+          name: 'Optical zoom',
+          type: 'String',
+          value: '20 x',
+        },
+        {
+          name: 'Focal length (35mm film equivalent)',
+          type: 'String',
+          value: '40 - 800 mm',
+        },
+        {
+          name: 'Image formats supported',
+          type: 'String',
+          value: '1920 x 1080, 1600 x 1200, 640 x 480',
+        },
+      ];
+      compareProduct1 = {
+        ...product,
+        sku: '111',
+        attributes: [
+          {
+            name: 'Optical zoom',
+            type: 'String',
+            value: '20 x',
+          },
+        ],
+      };
+      compareProduct2 = {
+        ...product,
+        sku: '112',
+        attributes: [
+          {
+            name: 'Optical zoom',
+            type: 'String',
+            value: '20 x',
+          },
+          {
+            name: 'Image formats supported',
+            type: 'String',
+            value: '1920 x 1080, 1600 x 1200, 640 x 480',
+          },
+        ],
+      };
+    });
+
+    describe('getCommonAttributeNames()', () => {
+      it('should return empty object when no products are supplied', () => {
+        expect(ProductHelper.getCommonAttributeNames(undefined)).toBeUndefined();
+        expect(ProductHelper.getCommonAttributeNames([])).toBeUndefined();
+      });
+
+      it('should return all attribute names of product if only one element is supplied', () => {
+        expect(ProductHelper.getCommonAttributeNames([product])).toEqual(
+          new Set(['Optical zoom', 'Focal length (35mm film equivalent)', 'Image formats supported'])
+        );
+      });
+
+      it('should return the correct set of attributes for different list of products', () => {
+        expect(ProductHelper.getCommonAttributeNames([product, compareProduct1])).toMatchInlineSnapshot(`
+          Set {
+            "Optical zoom",
+          }
+        `);
+        expect(ProductHelper.getCommonAttributeNames([product, compareProduct2])).toMatchInlineSnapshot(`
+          Set {
+            "Optical zoom",
+            "Image formats supported",
+          }
+        `);
+        expect(ProductHelper.getCommonAttributeNames([product, compareProduct1, compareProduct2]))
+          .toMatchInlineSnapshot(`
+          Set {
+            "Optical zoom",
+          }
+        `);
+      });
+    });
+
+    describe('getProductWithoutCommonAttributes()', () => {
+      it('should return undefined when no product or no compare products are supplied', () => {
+        expect(ProductHelper.getProductWithoutCommonAttributes(undefined, undefined)).toBeUndefined();
+      });
+
+      it('should return product with correct filtered attributes for different list of compare products', () => {
+        expect(ProductHelper.getProductWithoutCommonAttributes(product, [compareProduct1])).toMatchInlineSnapshot(`
+          Object {
+            "attributes": Array [
+              Object {
+                "name": "Focal length (35mm film equivalent)",
+                "type": "String",
+                "value": "40 - 800 mm",
+              },
+              Object {
+                "name": "Image formats supported",
+                "type": "String",
+                "value": "1920 x 1080, 1600 x 1200, 640 x 480",
+              },
+            ],
+            "availability": true,
+            "inStock": true,
+            "sku": "110",
+          }
+        `);
+        expect(ProductHelper.getProductWithoutCommonAttributes(product, [compareProduct2])).toMatchInlineSnapshot(`
+          Object {
+            "attributes": Array [
+              Object {
+                "name": "Focal length (35mm film equivalent)",
+                "type": "String",
+                "value": "40 - 800 mm",
+              },
+            ],
+            "availability": true,
+            "inStock": true,
+            "sku": "110",
+          }
+        `);
+        expect(ProductHelper.getProductWithoutCommonAttributes(product, [compareProduct1, compareProduct2]))
+          .toMatchInlineSnapshot(`
+          Object {
+            "attributes": Array [
+              Object {
+                "name": "Focal length (35mm film equivalent)",
+                "type": "String",
+                "value": "40 - 800 mm",
+              },
+              Object {
+                "name": "Image formats supported",
+                "type": "String",
+                "value": "1920 x 1080, 1600 x 1200, 640 x 480",
+              },
+            ],
+            "availability": true,
+            "inStock": true,
+            "sku": "110",
+          }
+        `);
+      });
+    });
+  });
 });
