@@ -16,7 +16,7 @@
     "update-dockerignore": "node scripts/update-dockerignore",
     "init-development-environment": "node scripts/init-development-environment",
     "check-file-synchronization": "node scripts/check-file-synchronization",
-    "postinstall": "npm-run-all --silent build:eslint-rules build:schematics synchronize-lazy-components init-development-environment ngcc",
+    "postinstall": "",
     "build:eslint-rules": "cd eslint-rules && npm run build",
     "build:schematics": "cd schematics && npm run build",
     "ng": "ng",
@@ -223,11 +223,29 @@
       "@commitlint/config-conventional"
     ],
     "rules": {
-      "body-leading-blank": [2, "always"],
-      "body-max-line-length": [2, "always", 400],
-      "footer-leading-blank": [2, "always"],
-      "footer-max-line-length": [2, "always", 400],
-      "header-max-length": [2, "always", 200],
+      "body-leading-blank": [
+        2,
+        "always"
+      ],
+      "body-max-line-length": [
+        2,
+        "always",
+        400
+      ],
+      "footer-leading-blank": [
+        2,
+        "always"
+      ],
+      "footer-max-line-length": [
+        2,
+        "always",
+        400
+      ],
+      "header-max-length": [
+        2,
+        "always",
+        200
+      ],
       "type-enum": [
         2,
         "always",
